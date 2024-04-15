@@ -9,7 +9,7 @@
 
   <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
   <title>Uozou</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css" id="stylesheet" />
 </head>
 
 <body>
@@ -25,10 +25,11 @@
       </ul>
 
       <div style="margin-left: 1rem;">
-        <select id="mode" name="cars">
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-        </select>
+        <!-- <select id="mode" name="cars">
+          <option id="darkMode" value="dark">Dark</option>
+          <option id="lightMode" value="light">Light</option>
+        </select> -->
+        <button id="darkModeToggle">Toggle Dark Mode</button>
       </div>
     </nav>
   </section>
@@ -212,10 +213,7 @@
     </div>
   </section>
 
-  <div>
-    <button id="scrollToTopBtn"><i class="fa-solid fa-angle-up"></i></button>
-  </div>
-
+  
   <input type="checkbox" id="showBtn">
   <label id="showBtn" for="showBtn"><i class="fa-solid fa-message"></i></label>
 
