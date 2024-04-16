@@ -415,7 +415,7 @@ i:hover {
 /* ********************ChatBox******************** */
 
 .chat {
-  display: block;
+  display: none;
   /* visibility: hidden; */
   position: fixed;
   right: 0.7rem;
@@ -465,7 +465,7 @@ input[type="checkbox"]{
   display: none;
 }
 #showBtn:checked ~ .chat{
-  display: none;
+  display: block;
 }
 #showBtn i {
   font-size: large;
@@ -479,6 +479,7 @@ input[type="checkbox"]{
 
 
 .chatbox {
+  display: none;
   position: relative;
   margin: 0.5rem 0.3rem;
   width: auto;
@@ -519,7 +520,7 @@ input[type="checkbox"]{
   background-color: rgb(60, 57, 57);
   outline: none;
 }
-.send-btn {
+.startBtn {
   font-size: 1.3rem;
   width: 100%;
   margin: 0.5rem 0;
@@ -530,13 +531,92 @@ input[type="checkbox"]{
   padding: 0.3rem;
 }
 
-.send-btn i {
+.startBtn i {
   align-items: center;
   background-color: #007bff;
   border-radius: 5px;
   padding: 0.2rem 0.1rem;
 }
 
-.send-btn:hover {
+.startBtn:hover {
   background-color: #0069d9;
+}
+
+
+/* **************Live chat***************** */
+
+.liveChatContainer{
+  display: block;
+  /* visibility: hidden; */
+  width: auto;
+  height: 85%;
+  margin-bottom: 0px;
+  border-radius: 0.6rem;
+}
+
+.liveChat{
+  /* border: 1px solid white; */
+  margin-bottom: 0.1rem;
+  /* width: 100%; */
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: 83.5%;
+  
+  overflow-y: auto;
+}
+
+.message{
+  background-color: rgb(141, 210, 187);
+  width: 50%;
+  padding: 0.2rem;
+  margin: 0.5rem 0.1rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  color: #000;
+  font-size: 1rem;
+  /* text-align: center; */
+}
+
+.left{
+  float: left;
+  clear: both;
+}
+.right{
+  float: right;
+  clear: both;
+}
+
+#send-container{
+  /* position: fixed; */
+  margin: 0rem 0.2rem 0.1rem;
+  display: flex;
+  width: 98%;
+  background-color: #ccc;
+  padding: 1rem 0.5rem;
+  margin-bottom: 0;
+  border-radius: 0.6rem;
+}
+#messageInp{
+  width: 90%;
+  padding: 0.6rem 1rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border: none;
+  outline: none;
+}
+.btn{
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  background-color: tomato;
+}
+.btn i{
+  font-size: larger;
+  padding: 0.4rem 0.6rem;
+  
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  color: blue;
+  background-color: tomato;
+  
 }
