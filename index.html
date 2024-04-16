@@ -7,6 +7,9 @@
   <meta name="author" content="Abhishek Kumar">
   <script src="https://kit.fontawesome.com/f0df9833ff.js" crossorigin="anonymous"></script>
 
+  
+  <script defer src="http://localhost:7500/socket.io/socket.io.js"></script>
+
   <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
   <title>Uozou</title>
   <link rel="stylesheet" href="style.css" id="stylesheet" />
@@ -214,25 +217,39 @@
   </section>
 
   
-  <input type="checkbox" id="showBtn">
+  <input type="checkbox" id="showBtn" >
   <label id="showBtn" for="showBtn"><i class="fa-solid fa-message"></i></label>
 
   <div class="chat">
     <div id="massage-heading">
       <h4 id="message">Let's Chat - Online</h4>
     </div>
-    <p style="padding: 0.5rem; text-align: center; margin: 0.5rem 0;">Please fill form below to start chatting with the next available agent.</p>
-      <form action="" class="chatbox">
-      <input type="text" class="message-input" placeholder="*Name" required>
+    <p class="agentPera" style="padding: 0.5rem; text-align: center; margin: 0.5rem 0; display: none ;">Please fill form below to start chatting with the next available agent.</p>
+      <form action="" class="chatbox" >
+      <input type="text" class="message-input nameInput" placeholder="*Name" required>
       <input type="Email" class="message-input" placeholder="*Email" required>
       <input type="name" class="message-input" placeholder="*Phone" required>
-      <button class="send-btn"><i class="fa-solid fa-location-arrow"></i> Start Chat</button>
+      <button class="startBtn" onclick="nextPage()"><i class="fa-solid fa-location-arrow"></i> Start Chat</button>
     </form>
+
+    <div class="liveChatContainer">
+    <div class="liveChat">
+      <!-- <div class="right message">Abhi: Hey how are you?</div>
+      <div class="left message">Bot: I am good. How about you?</div> -->
+      </div>
+  
+      <div class="send">
+          <form action="#" id="send-container">
+              <input type="text" id="messageInp" name="messageInp" placeholder="Type a message...">
+              <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+          </form>
+      </div>
+    </div>
   </div>
 
 
 
-  <script src="script.js"></script>
+  <script defer src="script.js"></script>
 
 
 
