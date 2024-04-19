@@ -7,7 +7,7 @@
   <meta name="author" content="Abhishek Kumar">
   <script src="https://kit.fontawesome.com/f0df9833ff.js" crossorigin="anonymous"></script>
 
-  
+
   <script defer src="http://localhost:7500/socket.io/socket.io.js"></script>
 
   <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
@@ -17,7 +17,35 @@
 
 <body>
   <section class="contianer">
-    <h1 id="logo">Uozou</h1>
+    <div class="location-section">
+      <h1 id="logo">Uozou</h1>
+      <div class="location-container">
+        <h5 class="location-popup"><i class="fa-solid fa-location-dot"></i>
+          <p id="upperAdd">Ghaziabad 201206</p>
+        </h5>
+      </div>
+    </div>
+    <div id="popupContainer" class="popup">
+      <div class="pincode-container">
+        <span id="backBtn" class="back" onclick="back()"><i class="fa-solid fa-xmark"></i></span>
+        <br>
+        <form action="" id="inputForm">
+          <input type="text" id="pincodeInput" placeholder="Enter pincode" maxlength="6" minlength="6">
+          <button onclick="searchPincode()" type="button">Apply</button>
+        </form>
+        <p id="cityInfo"></p>
+      </div>
+      <div class="popupContent">
+        <span id="closePopup" class="close"><i class="fa-solid fa-xmark"></i></span>
+        <br>
+        
+        <h4 class="get-pincode"><i class="fa-solid fa-location-dot"></i>Enter a pincode</h4>
+        
+        <h4 class="geoBtn" onclick="getCurrentLocation()"><i class="fa-solid fa-location-crosshairs"></i>Detect My
+          Location</h4>
+        <p class="districtPincode" ></p>
+      </div>
+    </div>
     <nav class="navbar">
       <ul class="list">
         <li><a href="">Home</a></li>
@@ -32,7 +60,7 @@
           <option id="darkMode" value="dark">Dark</option>
           <option id="lightMode" value="light">Light</option>
         </select> -->
-        <button id="darkModeToggle">Toggle Dark Mode</button>
+        <button id="darkModeToggle">Light</button>
       </div>
     </nav>
   </section>
@@ -214,39 +242,39 @@
     <div>
       <button id="scrollToTopBtn"><i class="fa-solid fa-angle-up"></i></button>
     </div>
+
   </section>
 
-  
-  <input type="checkbox" id="showBtn" >
+
+  <input type="checkbox" id="showBtn">
   <label id="showBtn" for="showBtn"><i class="fa-solid fa-message"></i></label>
 
   <div class="chat">
     <div id="massage-heading">
       <h4 id="message">Let's Chat - Online</h4>
     </div>
-    <p class="agentPera" style="padding: 0.5rem; text-align: center; margin: 0.5rem 0; display: none ;">Please fill form below to start chatting with the next available agent.</p>
-      <form action="" class="chatbox" >
+    <!-- <p class="agentPera" style="">Please fill form below to start chatting with the next available agent.</p>
+      <form action="" class="chatbox" id="chatBoxForm">
       <input type="text" class="message-input nameInput" placeholder="*Name" required>
       <input type="Email" class="message-input" placeholder="*Email" required>
       <input type="name" class="message-input" placeholder="*Phone" required>
-      <button class="startBtn" onclick="nextPage()"><i class="fa-solid fa-location-arrow"></i> Start Chat</button>
-    </form>
+      <button class="startBtn" onclick="hideForm()"><i class="fa-solid fa-location-arrow"></i> Start Chat</button>
+    </form> -->
 
     <div class="liveChatContainer">
-    <div class="liveChat">
-      <!-- <div class="right message">Abhi: Hey how are you?</div>
+      <div class="liveChat">
+        <!-- <div class="right message">Abhi: Hey how are you?</div>
       <div class="left message">Bot: I am good. How about you?</div> -->
       </div>
-  
+
       <div class="send">
-          <form action="#" id="send-container">
-              <input type="text" id="messageInp" name="messageInp" placeholder="Type a message...">
-              <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
-          </form>
+        <form action="#" id="send-container">
+          <input type="text" id="messageInp" name="messageInp" placeholder="Type a message...">
+          <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
       </div>
     </div>
   </div>
-
 
 
   <script defer src="script.js"></script>
