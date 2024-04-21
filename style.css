@@ -743,11 +743,12 @@ input[type="checkbox"] {
 
 .liveChat {
   /* border: 1px solid white; */
-  margin-bottom: 0.1rem;
+  margin: 0.1rem 0.1rem rem;
   padding: 0.5rem;
   box-sizing: border-box;
   border-radius: 5px;
-  height: 83.5%;
+  /* height: 83.5%; */
+  height: 89%;
   overflow-y: auto;
 }
 
@@ -772,19 +773,18 @@ input[type="checkbox"] {
 }
 
 #send-container {
-  margin: 0rem 0.2rem 0.1rem;
+  margin: 0.4rem 0.2rem 0.1rem;
   display: flex;
   width: 98%;
   background-color: #ccc;
-  padding: 1rem 0.5rem;
-  margin-bottom: 0;
+  padding:  0.2rem;
   border-radius: 0.6rem;
 }
 #messageInp {
   width: 90%;
   padding: 0.6rem 1rem;
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
+  border-radius: 0.5rem;
+  
   border: none;
   outline: none;
 }
@@ -801,3 +801,88 @@ input[type="checkbox"] {
   color: blue;
   background-color: tomato;
 }
+.media-preview {
+  display: inline-block;
+  margin: 0.1rem 0.1rem;
+  
+}
+
+.media-content {
+  margin: 0.1rem 0.1rem;
+  width: 100%;
+}
+
+.media {
+  max-width: 8rem;
+  height: auto;
+}
+
+.media-content a {
+  display: block;
+  margin-top: 5px;
+}
+
+.media-content a:hover {
+  text-decoration: underline;
+}
+
+.message {
+  position: relative;
+}
+
+.download-btn {
+  display: none;
+  position: absolute;
+  /* border-radius: 50%; */
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.download-btn i {
+  font-size: 1.3rem;
+  border-radius: 50%;
+  /* background: none; */
+}
+
+
+
+
+/* Hide the default file input */
+.file-input {
+  display: none;
+}
+
+/* Style the file input container */
+/* .file-input-container {
+  display: inline-block;
+  position: relative;
+} */
+
+/* Style the label as the container for the icon */
+.file-input-label {
+  display: flex;
+  align-items: center;
+  margin: 0rem 0.1rem 0rem 0.2rem;
+  background: none;
+  color: #fff;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+/* Position the icon within the label */
+.file-input-label i {
+  font-size: larger;
+  padding: 0.4rem 0.2rem;
+  border-radius: 0.5rem;
+  color: blue;
+  background: none;
+}
+.file-input-label i:hover {
+  color: tomato;
+}
+
+
