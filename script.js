@@ -63,14 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // *************************************Live Chat***********************************
 
-var name = document.getElementsByClassName("nameInput").value; // for chat user inputname
+const name = document.getElementsByClassName("nameInput").value; // for chat user inputname
 
 const form = document.getElementById("send-container");
 const messageInput = document.getElementById("messageInp");
 const messageContainer = document.querySelector(".liveChat");
 const fileInput = document.getElementById("fileInput");
 const sendFileBtn = document.getElementById("sendFileBtn");
-var audio = new Audio("./ting.mp3");
+var audio = new Audio("./media/ting.mp3");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -219,6 +219,45 @@ function downloadFile(data, fileName) {
 //   append(`${data.name} left the chat`, "left");
 // });
 
+
+
+
+
+// ***********************************Current Location******************************************
+
+// ********************Popup Start********************
+
+
+document.querySelector(".location-popup").addEventListener("click", () => {
+  document.getElementById("popupContainer").style.display = "block";
+});
+document.querySelector(".get-pincode").addEventListener("click", () => {
+  document.querySelector(".popupContent").style.display = "none";
+  // document.querySelector(".popup").style.display = "none";
+  document.querySelector(".pincode-container").style.display = "block";
+  // alert('working');
+});
+
+const back =()=>{
+  document.querySelector(".popupContent").style.display = "block";
+  // document.querySelector(".popup").style.display = "none";
+  document.querySelector(".pincode-container").style.display = "none";
+  
+}
+
+document.getElementById("closePopup").addEventListener("click", () => {
+  document.getElementById("popupContainer").style.display = "none";
+  // document.querySelector(".pincode-container").style.display = "none";
+});
+
+// Close the popup when clicking anywhere outside of it
+window.addEventListener("click", (event) => {
+  var popup = document.getElementById("popupContainer");
+  if (event.target == popup) {
+    popup.style.display = "none";
+  }
+});
+
 // ********************Popup End********************
 
 const showDetails = document.querySelector(".showDetails");
@@ -276,13 +315,14 @@ function searchPincode() {
   var pincode = document.getElementById("pincodeInput").value;
   if (!pincode) {
     // alert("Please enter a pincode.");
-    document.querySelector("#cityInfo").textContent =
-      "Please enter a 6 digit pincode";
+    document.querySelector(
+      "#cityInfo"
+    ).textContent = 'Please enter a 6 digit pincode';
     document.querySelector("#cityInfo").style.display = "block";
-    setTimeout(function () {
-      document.querySelector("#cityInfo").style.display = "none";
-    }, 2000);
-
+      setTimeout(function () {
+        document.querySelector("#cityInfo").style.display = "none";
+      }, 2000);
+    
     return;
   }
 
