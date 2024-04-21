@@ -789,17 +789,21 @@ input[type="checkbox"] {
   outline: none;
 }
 .btn {
+  border: none;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
-  background-color: tomato;
+  background: none;
 }
 .btn i {
   font-size: larger;
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0.2rem;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   color: blue;
-  background-color: tomato;
+  background: none;
+}
+.btn i:hover{
+  color: tomato;
 }
 .media-preview {
   display: inline-block;
