@@ -64,49 +64,154 @@ document.addEventListener("DOMContentLoaded", function () {
 // *************************************Live Chat***********************************
 
 const name = document.getElementsByClassName("nameInput").value; // for chat user inputname
-const email = document.getElementsByClassName("message-input").value;
-const phone = document.getElementsByClassName("message-input").value;
-const startBtn = document.getElementsByClassName("startBtn");
+
 const form = document.getElementById("send-container");
 const messageInput = document.getElementById("messageInp");
 const messageContainer = document.querySelector(".liveChat");
-var audio = new Audio("./media/ting.mp3");
-
-// const name = prompt("Enter your name to join");
-
-const append = (message, position) => {
-  const messageElement = document.createElement("div");
-  messageElement.innerText = message;
-  messageElement.classList.add("message");
-  messageElement.classList.add(position);
-  messageContainer.append(messageElement);
-
-  if (position == "left") {
-    audio.play();
-  }
-};
+const fileInput = document.getElementById("fileInput");
+const sendFileBtn = document.getElementById("sendFileBtn");
+var audio = new Audio("./ting.mp3");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+
   const message = messageInput.value;
   append(`You: ${message}`, "right");
-  socket.emit("send", message);
+  socket.emit("send", { message: message, type: "text" });
   messageInput.value = "";
+
+  uploadFile();
 });
 
-socket.emit("new-user-joined", name);
 
-// socket.on('user-joined', name => {
-//     append(`${name} joined the chat`, 'right')
-// })
+
+// sendFileBtn.addEventListener("click", () => {
+  const uploadFile =() =>{
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const fileData = {
+        fileName: file.name,
+        fileType: file.type,
+        fileData: reader.result
+      };
+      socket.emit("send", { message: fileData, type: "file" });
+      appendMediaPreview(fileData, "right");
+    };
+  }
+};
 
 socket.on("receive", (data) => {
-  append(`${data.name}: ${data.message}`, "left");
+  if (data.type === "text") {
+    append(`${data.name}: ${data.message}`, "left");
+  } else if (data.type === "file") {
+    appendMediaPreview(data.message, "left");
+  }
 });
 
-socket.on("left", (data) => {
-  append(`${data.name} left the chat`, "left");
-});
+
+
+function appendMediaPreview(mediaData, position) {
+  const mediaElement = document.createElement("div");
+  mediaElement.classList.add("media-preview");
+  
+  const downloadBtn = document.createElement("button");
+  downloadBtn.innerHTML = `<i class="fa-regular fa-circle-down"></i>`;
+  downloadBtn.classList.add("download-btn");
+  
+  const mediaContent = document.createElement("div");
+  mediaContent.classList.add("media-content");
+  
+  if (position === "right") {
+    mediaContent.innerHTML = `<img src="${mediaData.fileData}" class="media" />`;
+    downloadBtn.style.display = "none";
+  } else {
+    mediaContent.innerHTML = `<img src="${mediaData.fileData}" class="media" style="filter: blur(5px);" />`;
+    downloadBtn.style.display = "block";
+  }
+  
+  mediaElement.appendChild(mediaContent);
+  mediaElement.appendChild(downloadBtn);
+  
+  const messageWrapper = document.createElement("div");
+  messageWrapper.classList.add("message");
+  messageWrapper.classList.add(position);
+  messageWrapper.appendChild(mediaElement);
+  
+  messageContainer.appendChild(messageWrapper);
+  messageContainer.appendChild(document.createElement("br"));
+  
+  downloadBtn.addEventListener("click", () => {
+    downloadBtn.style.display = "none";
+    mediaContent.style.filter = "none";
+    downloadFile(mediaData.fileData, mediaData.fileName);
+    mediaContent.innerHTML = `<img src="${mediaData.fileData}" class="media" style="filter: blur(0px);" />`;
+  });
+}
+
+// function append(message, position) {
+//   const messageElement = document.createElement("div");
+//   messageElement.innerText = message;
+//   messageElement.classList.add("message");
+//   messageElement.classList.add(position);
+//   messageContainer.append(messageElement);
+
+//   if (position == "left") {
+//     audio.play();
+//   }
+// }
+
+function append(message, position) {
+  if (message.trim() !== "") {
+    const messageElement = document.createElement("div");
+    messageElement.innerText = message;
+    messageElement.classList.add("message");
+    messageElement.classList.add(position);
+    messageContainer.append(messageElement);
+
+    if (position == "left") {
+      audio.play();
+    }
+  }
+
+  // Check if the message container is empty
+  const isEmpty = messageContainer.querySelectorAll(".message").length === 0;
+
+  // If the container is empty, hide it
+  if (isEmpty) {
+    messageContainer.style.display = "none";
+  } else {
+    messageContainer.style.display = "block";
+  }
+}
+
+
+function downloadFile(data, fileName) {
+  const a = document.createElement("a");
+  a.href = data;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+
+
+// socket.emit("new-user-joined", name);
+
+// // socket.on('user-joined', name => {
+// //     append(`${name} joined the chat`, 'right')
+// // })
+
+// socket.on("receive", (data) => {
+//   append(`${data.name}: ${data.message}`, "left");
+// });
+
+// socket.on("left", (data) => {
+//   append(`${data.name} left the chat`, "left");
+// });
 
 // ***********************************Current Location******************************************
 
