@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // *************************************Live Chat***********************************
 
-const name = document.getElementsByClassName("nameInput").value; // for chat user inputname
+var name = document.getElementsByClassName("nameInput").value; // for chat user inputname
 
 const form = document.getElementById("send-container");
 const messageInput = document.getElementById("messageInp");
@@ -83,10 +83,8 @@ form.addEventListener("submit", (e) => {
   uploadFile();
 });
 
-
-
 // sendFileBtn.addEventListener("click", () => {
-  const uploadFile =() =>{
+const uploadFile = () => {
   const file = fileInput.files[0];
   if (file) {
     const reader = new FileReader();
@@ -95,7 +93,7 @@ form.addEventListener("submit", (e) => {
       const fileData = {
         fileName: file.name,
         fileType: file.type,
-        fileData: reader.result
+        fileData: reader.result,
       };
       socket.emit("send", { message: fileData, type: "file" });
       appendMediaPreview(fileData, "right");
@@ -109,21 +107,22 @@ socket.on("receive", (data) => {
   } else if (data.type === "file") {
     appendMediaPreview(data.message, "left");
   }
-});
 
+  audio.play();
+});
 
 
 function appendMediaPreview(mediaData, position) {
   const mediaElement = document.createElement("div");
   mediaElement.classList.add("media-preview");
-  
+
   const downloadBtn = document.createElement("button");
   downloadBtn.innerHTML = `<i class="fa-regular fa-circle-down"></i>`;
   downloadBtn.classList.add("download-btn");
-  
+
   const mediaContent = document.createElement("div");
   mediaContent.classList.add("media-content");
-  
+
   if (position === "right") {
     mediaContent.innerHTML = `<img src="${mediaData.fileData}" class="media" />`;
     downloadBtn.style.display = "none";
@@ -131,24 +130,34 @@ function appendMediaPreview(mediaData, position) {
     mediaContent.innerHTML = `<img src="${mediaData.fileData}" class="media" style="filter: blur(5px);" />`;
     downloadBtn.style.display = "block";
   }
-  
+
   mediaElement.appendChild(mediaContent);
   mediaElement.appendChild(downloadBtn);
-  
+
   const messageWrapper = document.createElement("div");
   messageWrapper.classList.add("message");
   messageWrapper.classList.add(position);
   messageWrapper.appendChild(mediaElement);
-  
+
   messageContainer.appendChild(messageWrapper);
   messageContainer.appendChild(document.createElement("br"));
-  
+
+  // Download Button for image downloading
   downloadBtn.addEventListener("click", () => {
     downloadBtn.style.display = "none";
     mediaContent.style.filter = "none";
     downloadFile(mediaData.fileData, mediaData.fileName);
     mediaContent.innerHTML = `<img src="${mediaData.fileData}" class="media" style="filter: blur(0px);" />`;
   });
+
+  // Clear the input field
+  fileInput.value = "";
+
+  // Remove previous media file if present
+  const previousMediaPreview = messageContainer.querySelector(".media-preview");
+  if (previousMediaPreview) {
+    messageContainer.removeChild(previousMediaPreview);
+  }
 }
 
 // function append(message, position) {
@@ -187,7 +196,6 @@ function append(message, position) {
   }
 }
 
-
 function downloadFile(data, fileName) {
   const a = document.createElement("a");
   a.href = data;
@@ -196,8 +204,6 @@ function downloadFile(data, fileName) {
   a.click();
   document.body.removeChild(a);
 }
-
-
 
 // socket.emit("new-user-joined", name);
 
@@ -212,41 +218,6 @@ function downloadFile(data, fileName) {
 // socket.on("left", (data) => {
 //   append(`${data.name} left the chat`, "left");
 // });
-
-// ***********************************Current Location******************************************
-
-// ********************Popup Start********************
-
-
-document.querySelector(".location-popup").addEventListener("click", () => {
-  document.getElementById("popupContainer").style.display = "block";
-});
-document.querySelector(".get-pincode").addEventListener("click", () => {
-  document.querySelector(".popupContent").style.display = "none";
-  // document.querySelector(".popup").style.display = "none";
-  document.querySelector(".pincode-container").style.display = "block";
-  // alert('working');
-});
-
-const back =()=>{
-  document.querySelector(".popupContent").style.display = "block";
-  // document.querySelector(".popup").style.display = "none";
-  document.querySelector(".pincode-container").style.display = "none";
-  
-}
-
-document.getElementById("closePopup").addEventListener("click", () => {
-  document.getElementById("popupContainer").style.display = "none";
-  // document.querySelector(".pincode-container").style.display = "none";
-});
-
-// Close the popup when clicking anywhere outside of it
-window.addEventListener("click", (event) => {
-  var popup = document.getElementById("popupContainer");
-  if (event.target == popup) {
-    popup.style.display = "none";
-  }
-});
 
 // ********************Popup End********************
 
@@ -305,14 +276,13 @@ function searchPincode() {
   var pincode = document.getElementById("pincodeInput").value;
   if (!pincode) {
     // alert("Please enter a pincode.");
-    document.querySelector(
-      "#cityInfo"
-    ).textContent = 'Please enter a 6 digit pincode';
+    document.querySelector("#cityInfo").textContent =
+      "Please enter a 6 digit pincode";
     document.querySelector("#cityInfo").style.display = "block";
-      setTimeout(function () {
-        document.querySelector("#cityInfo").style.display = "none";
-      }, 2000);
-    
+    setTimeout(function () {
+      document.querySelector("#cityInfo").style.display = "none";
+    }, 2000);
+
     return;
   }
 
