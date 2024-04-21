@@ -38,12 +38,12 @@
       <div class="popupContent">
         <span id="closePopup" class="close"><i class="fa-solid fa-xmark"></i></span>
         <br>
-        
+
         <h4 class="get-pincode"><i class="fa-solid fa-location-dot"></i>Enter a pincode</h4>
-        
+
         <h4 class="geoBtn" onclick="getCurrentLocation()"><i class="fa-solid fa-location-crosshairs"></i>Detect My
           Location</h4>
-        <p class="districtPincode" ></p>
+        <p class="districtPincode"></p>
       </div>
     </div>
     <nav class="navbar">
@@ -270,6 +270,12 @@
       <div class="send">
         <form action="#" id="send-container">
           <input type="text" id="messageInp" name="messageInp" placeholder="Type a message...">
+          <!-- <div class="file-input-container"> -->
+            <label for="fileInput" class="file-input-label">
+              <i class="fas fa-paperclip"></i>
+            </label>
+            <input type="file" id="fileInput" class="file-input" name="fileInput">
+          <!-- </div> -->
           <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
         </form>
       </div>
